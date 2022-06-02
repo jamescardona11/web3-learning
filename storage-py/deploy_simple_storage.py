@@ -1,7 +1,4 @@
 import os
-from re import S
-from tkinter import W
-from numpy import byte
 from solcx import compile_standard, install_solc
 import json
 from web3 import Web3
@@ -22,9 +19,7 @@ compiled_sol = compile_standard(
         "sources": {"SimpleStorage.sol": {"content": simple_storage_file}},
         "settings": {
             "outputSelection": {
-                "*": {
-                    "*": ["abi", "medatada", "evm.bytecode", "evm.sourceMap"],
-                }
+                "*": {"*": ["abi", "medatada", "evm.bytecode", "evm.sourceMap"],}
             }
         },
     },
@@ -78,4 +73,38 @@ signed_txn = w3.eth.account.sign_transaction(transaction, private_key=private_ke
 
 # send
 tx_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
-print(signed_txn)
+tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+
+
+# working with contract, you send
+# contract ABI
+# contract Address
+simple_storage = w3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
+
+# call -> **simulate** making the call and getting the return value
+# transact -> actually make a state change
+
+
+# initial value for favorite number
+print("call simulate", simple_storage.functions.retrieve().call())
+
+store_transaction = simple_storage.functions.store(110).buildTransaction(
+    {
+        "gasPrice": w3.eth.gas_price,
+        "chainId": chain_id,
+        "from": my_address,
+        "nonce": nonce + 1,
+    }
+)
+
+signed_store_txn = w3.eth.account.sign_transaction(
+    store_transaction, private_key=private_key
+)
+
+store_hash = w3.eth.send_raw_transaction(signed_store_txn.rawTransaction)
+store_tx_receipt = w3.eth.wait_for_transaction_receipt(store_hash)
+
+w3.eth.contract(address=store_tx_receipt.contractAddress, abi=abi)
+
+
+print("call simulate", simple_storage.functions.retrieve().call())
