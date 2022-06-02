@@ -39,9 +39,9 @@ bytecode = compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["evm"
 abi = compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["abi"]
 
 # for connecting to ganache
-w3 = Web3(Web3.HTTPProvider("http://0.0.0.0:7545"))
+w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
 chain_id = 1337
-my_address = "0x74392A5874ed63c48A1eCD6f40b3F3d3Cf356bf8"
+my_address = "0xFF2CB4aE6759B3A61473F94bed92A94062109c56"
 private_key = os.getenv("PRIVATE_KEY")
 print(private_key)
 
@@ -103,8 +103,6 @@ signed_store_txn = w3.eth.account.sign_transaction(
 
 store_hash = w3.eth.send_raw_transaction(signed_store_txn.rawTransaction)
 store_tx_receipt = w3.eth.wait_for_transaction_receipt(store_hash)
-
-w3.eth.contract(address=store_tx_receipt.contractAddress, abi=abi)
 
 
 print("call simulate", simple_storage.functions.retrieve().call())
