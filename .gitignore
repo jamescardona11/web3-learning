@@ -7,3 +7,4 @@
 **/.hypothesis/
 **/build/
 **/reports/
+**/.pytest_cache/

@@ -21,7 +21,14 @@ Cosas importantes:
 // / \
 //receive() fallback()
 
-### Brownie - accounts
+### Brownie
+
+Brownie sabe si debe hacer un call o una transacción
+Pytest to test
+
+`brownie init`
+
+## accounts
 
 ##### create a custom account from metamask
 
@@ -42,6 +49,18 @@ Cosas importantes:
 
 - from brownie import config
 - account = accounts.add(config["wallets"]["from_key"])
+
+## Change the network to deploy with brownie
+
+- using .env
+
+* `export WEB3_INFURA_PROJECT_ID=<projectid>`
+
+- brownie run <script> --network <network>
+
+### brownie console
+
+Podemos usar la mayor cantidad de cosas en la consola
 
 [//]: #
 [modifier]: https://medium.com/coinmonks/solidity-tutorial-all-about-modifiers-a86cf81c14cb
