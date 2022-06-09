@@ -64,3 +64,7 @@ Podemos usar la mayor cantidad de cosas en la consola
 
 [//]: #
 [modifier]: https://medium.com/coinmonks/solidity-tutorial-all-about-modifiers-a86cf81c14cb
+
+### Add network to brownie
+
+brownie networks add Ethereum ganache-local host=http://127.0.0.1:7545 chainid=1337
