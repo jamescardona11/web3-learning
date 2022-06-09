@@ -2,20 +2,21 @@
 pragma solidity ^0.8.14;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-import "@chainlink/contracts/src/v0.8/vendor/SafeMathChainlink.sol";
 
 contract FundMe {
-    using SafeMathChainlink for uint256;
-
     mapping(address => uint256) public addressToAmountFunded;
-    // array of addresses who deposited
     address[] public funders;
     address public owner;
     AggregatorV3Interface public priceFeed;
 
+    // if you're following along with the freecodecamp video
+    // Please see https://github.com/PatrickAlphaC/fund_me
+    // to get the starting solidity contract code, it'll be slightly different than this!
+
     // the first person to deploy the contract is
     // the owner
     constructor(address _priceFeed) public {
+        priceFeed = AggregatorV3Interface(_priceFeed);
         owner = msg.sender;
     }
 
@@ -30,7 +31,7 @@ contract FundMe {
         // );
 
         require(
-            msg.value.getConversionRate() >= minimumUSD,
+            getConversionRate(msg.value) >= minimumUSD,
             "You need to spend more ETH!"
         );
         addressToAmountFunded[msg.sender] += msg.value;
@@ -80,9 +81,6 @@ contract FundMe {
     function getPrice() internal view returns (uint256) {
         // Rinkeby ETH / USD Address
         // https://docs.chain.link/docs/ethereum-addresses/
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
-        );
         (, int256 answer, , , ) = priceFeed.latestRoundData();
         // ETH/USD rate in 18 digit
         return uint256(answer * 1e10);
@@ -101,9 +99,6 @@ contract FundMe {
     }
 
     function getVersion() internal view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
-        );
         return priceFeed.version();
     }
 

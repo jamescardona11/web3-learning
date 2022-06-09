@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 install_solc("0.7.0")
 load_dotenv("../.env")
 
-with open("../storage-sol/SimpleStorage.sol") as file:
+with open("./SimpleStorage.sol") as file:
     simple_storage_file = file.read()
 
 # compile our solidity
