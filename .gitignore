@@ -1,5 +1,6 @@
 .vscode
 .env
+.encryptedKey.json
 
 **/__pycache__
 **/.env

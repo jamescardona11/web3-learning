@@ -8,12 +8,21 @@ async function main() {
   // http://127.0.0.1:7545
   //chain: '1337'
 
-  const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:7545');
+  const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+  const encryptedJson = fs.readFileSync("./.encryptedKey.json", 'utf8');
+
+  // secure
+  // let wallet = new ethers.Wallet.fromEncryptedJsonSync(encryptedJson, process.env.PRIVATE_KEY_PASSWORD);
+  // wallet = await wallet.connect(provider);
+
+
   //ganache 
   const wallet = new ethers.Wallet(
     process.env.PRIVATE_KEY,
     provider
   );
+
+
   const abi = fs.readFileSync('./SimpleStorage_sol_SimpleStorage.abi', 'utf8');
   const bin = fs.readFileSync('./SimpleStorage_sol_SimpleStorage.bin', 'utf8');
 
@@ -26,7 +35,7 @@ async function main() {
   console.log('Here is the transaction receipt: ');
   console.log(transactionReceipt)
 
-  // /// sending raw transaction
+  // sending raw transaction manual
   // console.log('Lets deploy with only transaction data!');
   // const nonce = await wallet.getTransactionCount();
   // const tx = {
