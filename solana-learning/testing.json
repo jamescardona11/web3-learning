@@ -1,0 +1,42 @@
+{
+  "name": "Testing James Cardona",
+  "symbol": "",
+  "description": "James Solflare NFT for the Solflare X launch",
+  "seller_fee_basis_points": 0,
+  "image": "https://raw.githubusercontent.com/jamescardona11/flutter_ui_challenges/master/course_ui_app/preview/preview.jpg",
+  "external_url": "https://jamescardona11.com",
+  "attributes": [
+    {
+      "trait_type": "web",
+      "value": "yes"
+    },
+    {
+      "trait_type": "mobile",
+      "value": "yes"
+   },
+   {
+      "trait_type": "extension",
+      "value": "yes"
+    }
+  ],
+  "collection": {
+     "name": "JamesCardona X NFT",
+     "family": "Bulls"
+  },
+  "properties": {
+    "files": [
+      {
+        "uri": "https://raw.githubusercontent.com/jamescardona11/flutter_ui_challenges/master/course_ui_app/preview/preview.jpg",
+        "type": "image/jpg"
+      }
+      
+    ],
+    "category": "image",
+    "creators": [
+      {
+        "address": "2v59wcRy18VHas3FaE27AEGj1RmD9KTkKinSt65DGTmu",
+        "share": 100
+      }
+    ]
+  }
+}
